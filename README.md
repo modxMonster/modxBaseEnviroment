@@ -62,14 +62,16 @@ All these steps, you can see it in this link. [Using Linux PHPStorm inside WSL2]
 vim .bashrc
 ```
 
-2. We press "i" and at the end, we add this line of code.
+2. Go to the end of the file, and press 'i' to start inserting text
+
+3. On a new line, at the end of the file, enter the following
 ```
 export DISPLAY=$(awk '/^nameserver/ {print $2; exit;}' </etc/resolv.conf):0.0
 ```
 
-4.  For save press "ESC" and then ":wq!"
+4.  To save press "ESC" and then ":wq!"
 
-5.  the section must be like this part.
+5.  The end of your file should look like this
 ```
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -102,13 +104,14 @@ mkdir development
 cd development
 ```
 
-2. Inside the development folder paste the .tar of PhpStorm.
+2. Download [PHPStorm](https://www.jetbrains.com/es-es/phpstorm/download/#section=linux) and paste it inside of development folder.
+
 
 3. Now run these commands.
 ```
 mkdir IDE
 sudo chmod -R 0777 IDE
-sudo tar -xvf PhpStorm-2020.3.2.tar.gz -C IDE/
+sudo tar -xvf PhpStorm-version.tar.gz -C IDE/
 ```
 
 4. Now run PhpStorm.
@@ -161,7 +164,3 @@ vim /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 8. At this point, the container must be down, and Inside of Phpstorm go to "run" and select "start listening".
 
 9. Now up the container again and the Xdebug must be working. 
-
-
-
-
