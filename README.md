@@ -55,21 +55,113 @@ web_1  | [Thu Jan 14 13:27:32.027113 2021] [core:notice] [pid 1] AH00094: Comman
 5. Check that everything is working as expected, for this open `https://MODX_SERVER_ROUTE/`
 replace the x's with your actual ip address.
 
-## Developing with this image
+## Setting X410
+All these steps, you can see it in this link. [Using Linux PHPStorm inside WSL2](https://www.ddev.com/ddev-local/ddev-local-and-phpstorm-debugging-with-wsl2/)
+1. From the terminal, we execute this command.
+```
+vim .bashrc
+```
 
-1. After the installation its completed, we are ready to start developing, 
-for this, start by adding this folder to your preferred IDE
-2. Create any element needed inside the ModX admin, and once you are finished,
-open a terminal and run:  
-`docker exec -ti modxbaseenviroment_web_1 sh -c "cd /var/www/html && Gitify extract"`
-3. You'll see a new `_data` folder inside the html folder, there you can find
-all the plain files extracted from ModX for you to work directly with your preferred IDE
-4. When you are done with the changes on the files, run the command:  
-`docker exec -ti modxbaseenviroment_web_1 sh -c "cd /var/www/html && Gitify build && rm -fr /var/www/html/core/cache"`  
-This will have your changes commited into ModX.  
-Depending on the IDE you are using, you can add this command as an action
-when you press the save button, for example for VSCode, you can follow 
-[this tutorial](https://medium.com/better-programming/automatically-execute-bash-commands-on-save-in-vs-code-7a3100449f63)
-to have the command called everytime you save a file in your IDE.
-5. Make sure to add the `_data` folder to git and commit those to the repo.
-6. Follow the standard GIT workflow defined on the best practices manual.
+2. We press "i" and at the end, we add this line of code.
+```
+export DISPLAY=$(awk '/^nameserver/ {print $2; exit;}' </etc/resolv.conf):0.0
+```
+
+4.  For save press "ESC" and then ":wq!"
+
+5.  the section must be like this part.
+```
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+export DISPLAY=$(awk '/^nameserver/ {print $2; exit;}' </etc/resolv.conf):0.0
+```
+
+6. Now, we execute this command.
+ ```
+sudo apt-get update && sudo apt-get install libatk1.0 libatk-bridge2.0 libxtst6 libxi6 libpangocairo-1.0 libcups2 libnss3 xdg-utils x11-apps
+```
+
+7. To verify that the configuration was successful, run this command and some eyes appear.
+ ```
+xeyes
+```
+
+## PhpStorm Install
+
+1. We create a development folder.
+```
+mkdir development
+cd development
+```
+
+2. Inside the development folder paste the .tar of PhpStorm.
+
+3. Now run these commands.
+```
+mkdir development IDE
+sudo chmod -R 0777 IDE
+sudo tar -xvf PhpStorm-2020.3.2.tar.gz -C IDE/
+```
+
+4. Now run PhpStorm.
+```
+cd IDE/PhpStorm-181.5281.19/bin
+./phpstorm.sh
+```
+
+5. If PhpStorm opened, we need to set up the launcher running this command.
+ ```
+sudo ln -s /home/NombreAdmin/development/IDE/PhpStorm-203.7148.74/bin/phpstorm.sh /usr/bin/storm
+```
+
+6. From now on you can open your project using storm . &
+ ```
+:~/development/newProject/storm . &
+```
+
+7. Inside to PhpStorm go to help > Edit Custom VM Option and at the end paste this command.
+ ```
+-Djava.net.preferIPv4Stack=true
+```
+
+## Setting Xdebug
+
+1. From the terminal, run "ifconfig" and save the first IP.
+
+2. Run docker ps and copy the container name that ended in web_1.
+
+3. Rename the container to this command and run it.
+ ```
+docker exec -it containerName_web_1 /bin/bash
+```
+
+4. Run these commands
+ ```
+apt update
+apt install vim
+```
+
+5. When the installation is complete, run this command
+```
+vim /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+```
+
+6. Now press "i" and change the IP to the one copied in the first step
+
+7. For save press "ESC" and then ":wq!"
+
+8. At this point, the container must be down, and Inside of Phpstorm go to "run" and select "start listening".
+
+9. Now up the container again and the Xdebug must be working. 
+
+
+
+
