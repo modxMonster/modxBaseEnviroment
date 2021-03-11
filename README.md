@@ -106,7 +106,7 @@ cd development
 
 3. Now run these commands.
 ```
-mkdir development IDE
+mkdir IDE
 sudo chmod -R 0777 IDE
 sudo tar -xvf PhpStorm-2020.3.2.tar.gz -C IDE/
 ```
@@ -119,7 +119,7 @@ cd IDE/PhpStorm-181.5281.19/bin
 
 5. If PhpStorm opened, we need to set up the launcher running this command.
  ```
-sudo ln -s /home/NombreAdmin/development/IDE/PhpStorm-203.7148.74/bin/phpstorm.sh /usr/bin/storm
+sudo ln -s /home/AdminName/development/IDE/PhpStorm-203.7148.74/bin/phpstorm.sh /usr/bin/storm
 ```
 
 6. From now on you can open your project using storm . &
